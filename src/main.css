@@ -3,14 +3,14 @@
 }
 
 .thumbnail {
-  -max-height: 250px;
+  max-height: 250px;
   max-width: 325px;
 }
 
 .thumbnail img {
   /*  height:250px;
     width:100%;*/
-    display: block;
+    /*display: block;*/
   max-width:230px;
   max-height:300px;
   width: auto;
