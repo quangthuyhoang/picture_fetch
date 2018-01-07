@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './main.css';
 import data from './data.js';
-import ImageBox from './ImageBox'
+import PictureBox from './PictureBox'
 
-class ImageList extends Component {
+class PictureList extends Component {
 	
 	render() {
 		let imgList = this.props.data.map(picture => {
 			return (
-				<ImageBox key={picture._id} imgUrl={picture.url} imgThumb={picture.thumbnail.url} description={picture.description} />
+				<PictureBox key={picture._id} imgUrl={picture.url} imgThumb={picture.thumbnail.url} description={picture.description} />
 				)
 		});
 
@@ -20,4 +20,4 @@ class ImageList extends Component {
 	}
 }
 
-export default ImageList;
+export default PictureList;
