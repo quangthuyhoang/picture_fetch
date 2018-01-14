@@ -1,0 +1,3 @@
+const seed = [{"name":"Family_Portrait","pos":{"x":"616","y":"212"},"_id":1},{"name":"about","pos":{"x":"616","y":"212"},"_id":1},{"name":"beach","pos":{"x":"773","y":"333"},"_id":2},{"name":"contact","pos":{"x":"438","y":"291"},"_id":3},{"name":"cover","pos":{"x":"846","y":"217"},"_id":4},{"name":"logo","pos":{"x":"301","y":"294"},"_id":5},{"name":"person1","pos":{"x":"36","y":"175"},"_id":6},{"name":"person2","pos":{"x":"456","y":"174"},"_id":7},{"name":"portfolio1","pos":{"x":"228","y":"285"},"_id":8},{"name":"portfolio3","pos":{"x":"863","y":"343"},"_id":9},{"name":"portfolio7","pos":{"x":"345","y":"413"},"_id":10},{"name":"portfolio9","pos":{"x":"743","y":"374"},"_id":11}]
+
+module.exports = seed;

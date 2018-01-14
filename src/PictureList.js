@@ -54,14 +54,20 @@ class PictureList extends Component {
 			 left: picture.pos.x + 'px',
 			 top: picture.pos.y + 'px',
 			 border: '1px solid black',
+			 transform: 'rotate('+picture.pos.deg+'deg)',
+			 'box-shadow': '-10px 0px 20px 0px rgba(0,0,0,0.5)',
   			 padding: '5px',
   			 backgroundColor: 'white',
   			 // display: 'none',
 			}
-		
+			var picSource;
+			if(picture.name) {
+			 picSource = './img/' + picture.name + '.jpg'
+			}
+
 			return (
-				<PictureBox refID={picture._id} key={i} pStyle={pStyle} imgUrl={picture.url}
-				 imgThumb={picture.thumbnail.url} display={picture.class}/>
+				<PictureBox refID={picture._id} key={i} pStyle={pStyle} imgUrl={picture.url ? picture.url : picSource}
+				  display={picture.class}/>
 				)
 		});
 
@@ -80,8 +86,5 @@ class PictureList extends Component {
 
 export default PictureList;
 
-// return (
-// 			<div className="">
-// 				{newList}
-// 			</div>
-// 			)
+// <PictureBox refID={picture._id} key={i} pStyle={pStyle} imgUrl={picture.url ? picture.url : picSource}
+// 				 imgThumb={picture.thumbnail.url} display={picture.class}/>

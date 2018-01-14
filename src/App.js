@@ -3,22 +3,23 @@ import './main.css';
 // import TransitionGroup from 'react-transition-group/TransitionGroup';
 import PictureList from './PictureList';
 import SearchBox from './SearchBox';
-import seed from './data.js';
+import seed from './imgSeed.js';
 // import imageCheck from 'image-check';
 
 function randomPicPos(data){
    var imgArr = data;
-   const div_height = 250;
-   const div_width = 325;
+   const div_height = 450;
+   const div_width = 525;
    const b_width = document.body.clientWidth;
    const b_height = document.body.clientHeight;
 
    for(var i = 0; i < imgArr.length; i++) {
   
-    var pos_x = (Math.random()*(b_width - div_width)).toFixed();
-    var pos_y = (Math.random()*(b_height - div_height) + 80).toFixed();
-
-    imgArr[i].pos = {x: pos_x, y: pos_y};
+    var pos_x = (Math.random()*(b_width - div_width*.75)).toFixed();
+    var pos_y = (Math.random()*(b_height - div_height*.75) + 70).toFixed();
+    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    var deg = (Math.random()*-7*plusOrMinus).toFixed();
+    imgArr[i].pos = {x: pos_x, y: pos_y, deg: deg};
     imgArr[i].class = "PictureBox nodisplay";
     imgArr[i]._id = i + 1;
    }
@@ -62,10 +63,10 @@ class App extends Component {
       // }
       newData = this.addClass(this.randomPicPos(data));
       console.log("initial server check", newData)
-      this.setState({data: newData })
+      this.setState({data: newData }, ()=> this.intervalReveal() )
       }, (err) => {
         console.log(err)
-    }, console.log("after change", this.state.data))
+    })
   }
 
   componentDidMount() {
@@ -84,8 +85,8 @@ class App extends Component {
   
     var pos_x = (Math.random()*(b_width - div_width)).toFixed();
     var pos_y = (Math.random()*(b_height - div_height) + 80).toFixed();
-
-    imgArr[i].pos = {x: pos_x, y: pos_y};
+    var deg = (Math.random()*-7).toFixed();
+    imgArr[i].pos = {x: pos_x, y: pos_y, deg: deg};
     imgArr[i]._id = i + 1;
    }
 
@@ -122,13 +123,10 @@ class App extends Component {
       console.log("display length less than 1")
       return;
     }
-    if(this.state.cnt > 3) {
-      console.log("cnt greater than 3")
-      return;
-    }
+ 
 
     // reveal on image and join with others
-    notdisplay[0]['class'] = "PictureBox";
+    notdisplay[0]['class'] = "PictureBox show";
     var newData = display.concat(notdisplay);
 
     this.setState({data: newData, cnt: this.state.cnt + 1}, ()=> {
