@@ -7,6 +7,21 @@
   max-width: 325px;
 }
 
+.nodisplay {
+  opacity: 0;
+}
+
+
+
+.PictureBox {
+  /*opacity: 1;*/
+  transition-duration: 1.5s;
+}
+
+img:hover {
+  opacity: 0.5;
+}
+
 .thumbnail img {
   /*  height:250px;
     width:100%;*/
@@ -65,3 +80,29 @@ input[type=submit] {
   border: 1px solid black;
   padding: 5px;
 }
+
+.item {
+  display: block;
+  margin: 0;
+  padding: .5em;
+  background-color:
+}
+
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+/*
+.fade-leave {
+  opacity: 1;
+}*/
+
+/*.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}*/

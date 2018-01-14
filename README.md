@@ -2,4 +2,5 @@
 ## A practice in CSS
 
 Plan:
+-hide picture by default and slowly reveal each picture one by one
 -Apply different shadow effect randomly to each imagebox to make it look like the pictures are scattered.

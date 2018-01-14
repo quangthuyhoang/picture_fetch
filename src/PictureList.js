@@ -1,55 +1,87 @@
 import React, { Component } from 'react';
-import './main.css';
+import { CSSTransitionGroup } from 'react-transition-group'
 import data from './data.js';
 import PictureBox from './PictureBox'
 
+const duration = 300;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0,
+}
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered:  { opacity: 1 },
+};
+
+
+
 class PictureList extends Component {
 
-	randomPicPos(){
-	 var imgArr = this.props.data;
-	 var div_height = 250;
-	 var div_width = 325;
-	 var b_width = document.body.clientWidth;
-	 var b_height = document.body.clientHeight;
-	 console.log(b_height,b_width)
-	 for(var i = 0; i < imgArr.length; i++) {
-	
-	 	var pos_x = (Math.random()*(b_width - div_width)).toFixed();
-	 	var pos_y = (Math.random()*(b_height - div_height) + 80).toFixed();
-	 	console.log(b_height,pos_x,pos_y)
-	 	imgArr[i].pos = {x: pos_x, y: pos_y};
-	 }
-	 
-	 console.log(imgArr);
+	// randomPicPos(){
+	//  var imgArr = this.props.data;
+	//  const div_height = 250;
+	//  const div_width = 325;
+	//  const b_width = document.body.clientWidth;
+	//  const b_height = document.body.clientHeight;
 
-	 return imgArr;
-	}
+	//  for(var i = 0; i < imgArr.length; i++) {
+	
+	//  	var pos_x = (Math.random()*(b_width - div_width)).toFixed();
+	//  	var pos_y = (Math.random()*(b_height - div_height) + 80).toFixed();
+
+	//  	imgArr[i].pos = {x: pos_x, y: pos_y};
+	//  	imgArr[i].class = "PictureBox nodisplay";
+	//  }
+
+	//  return imgArr;
+	// }
+
+
 
 	render() {
-		var imgList = this.randomPicPos();
 
+		// var imgList = this.props.data.length > 4 ? this.props.data : this.randomPicPos();
 
-		let newList = imgList.map(picture => {
+		
+		var imgList = this.props.data;
+
+		console.log("test",this.props.data)
+		let newList = imgList.map((picture, i) => {
 			const pStyle = {
 			 position: 'absolute',
 			 left: picture.pos.x + 'px',
 			 top: picture.pos.y + 'px',
 			 border: '1px solid black',
-  			 padding: '5px'
+  			 padding: '5px',
+  			 backgroundColor: 'white',
+  			 // display: 'none',
 			}
+		
 			return (
-				<PictureBox key={picture._id} pStyle={pStyle} imgUrl={picture.url} imgThumb={picture.thumbnail.url} description={picture.description} />
+				<PictureBox refID={picture._id} key={i} pStyle={pStyle} imgUrl={picture.url}
+				 imgThumb={picture.thumbnail.url} display={picture.class}/>
 				)
 		});
+
+		console.log(newList)
 		// this.test();
 
-
 		return (
-			<div className="">
+			<div id="imgList">
 				{newList}
 			</div>
 			)
+		
+
 	}
 }
 
 export default PictureList;
+
+// return (
+// 			<div className="">
+// 				{newList}
+// 			</div>
+// 			)

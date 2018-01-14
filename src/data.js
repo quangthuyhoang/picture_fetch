@@ -1,6 +1,8 @@
 const data = [
+{"type":"image/jpeg","width":1280,"height":839,"size":136302,"url":"http://assets2.ignimgs.com/2016/05/27/overwatchspencerbowen2jpg-653512_1280w.jpg","thumbnail":{"url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnVXlFVJ9ZIRHra4hQGpafZby2BaDc2ZkxEnMhMuVSvEYGmgZ8swWzQY","width":150,"height":98},"description":"Fanart Friday: Overwatch - IGN","parentPage":"http://www.ign.com/articles/2016/05/27/fanart-friday-overwatch","pos":{"x":"761","y":"232"},"class":"PictureBox nodisplay"},
 	{
 	"type": "image/jpeg",
+
 	"width": 1280,
 	"height": 839,
 	"size": 136302,
@@ -16,6 +18,7 @@ const data = [
 	},
 {
 "type": "image/jpeg",
+// "class": "PictureBox nodisplay",
 "width": 900,
 "height": 320,
 "size": 1819770,
@@ -30,6 +33,7 @@ const data = [
 },
 {
 "type": "image/png",
+// "class": "PictureBox nodisplay",
 "width": 590,
 "height": 332,
 "size": 327395,

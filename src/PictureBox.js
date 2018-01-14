@@ -7,9 +7,8 @@ class PictureBox extends Component {
 	}
 
 	render() {
-
 		return (
-			<div style={this.props.pStyle}> 
+			<div className={this.props.display} style={this.props.pStyle}> 
 				<div className="thumbnail">
 				 <img onError={this.addDefaultSrc} src={this.props.imgUrl} alt="broken image"/>
 				</div>
