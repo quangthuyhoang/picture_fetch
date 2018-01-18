@@ -18,9 +18,3 @@ class PictureBox extends Component {
 }
 
 export default PictureBox;
-
-			// <div className="imagebox" > 
-			// 	<div className="thumbnail">
-			// 	 <img onError={this.addDefaultSrc} src={this.props.imgUrl} alt="broken image"/>
-			// 	</div>
-			// </div>

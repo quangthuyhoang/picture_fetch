@@ -6,7 +6,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 const apiUrlPic = 'http://ludicrous-oval.glitch.me/api/imagesearch/';
-// const test = 'http://ludicrous-oval.glitch.me/api/imagesearch/pastries%20chocolate?ofsfset=1';
-
-ReactDOM.render(<App url={apiUrlPic} />, document.getElementById('root'));
+var localpic = 'http://localhost:5000/api/pictures';
+ReactDOM.render(<App local={localpic} url={apiUrlPic} />, document.getElementById('root'));
 registerServiceWorker();

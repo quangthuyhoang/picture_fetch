@@ -1,53 +1,12 @@
 import React, { Component } from 'react';
-import { CSSTransitionGroup } from 'react-transition-group'
-import data from './data.js';
-import PictureBox from './PictureBox'
-
-const duration = 300;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0,
-}
-
-const transitionStyles = {
-  entering: { opacity: 0 },
-  entered:  { opacity: 1 },
-};
-
+import PictureBox from './PictureBox';
 
 
 class PictureList extends Component {
-
-	// randomPicPos(){
-	//  var imgArr = this.props.data;
-	//  const div_height = 250;
-	//  const div_width = 325;
-	//  const b_width = document.body.clientWidth;
-	//  const b_height = document.body.clientHeight;
-
-	//  for(var i = 0; i < imgArr.length; i++) {
-	
-	//  	var pos_x = (Math.random()*(b_width - div_width)).toFixed();
-	//  	var pos_y = (Math.random()*(b_height - div_height) + 80).toFixed();
-
-	//  	imgArr[i].pos = {x: pos_x, y: pos_y};
-	//  	imgArr[i].class = "PictureBox nodisplay";
-	//  }
-
-	//  return imgArr;
-	// }
-
-
-
 	render() {
 
-		// var imgList = this.props.data.length > 4 ? this.props.data : this.randomPicPos();
-
-		
 		var imgList = this.props.data;
 
-		console.log("test",this.props.data)
 		let newList = imgList.map((picture, i) => {
 			const pStyle = {
 			 position: 'absolute',
@@ -58,11 +17,10 @@ class PictureList extends Component {
 			 'box-shadow': '-10px 0px 20px 0px rgba(0,0,0,0.5)',
   			 padding: '5px',
   			 backgroundColor: 'white',
-  			 // display: 'none',
 			}
 			var picSource;
 			if(picture.name) {
-			 picSource = './img/' + picture.name + '.jpg'
+			 picSource = './img/' + picture.name //+ '.jpg'
 			}
 
 			return (
@@ -70,9 +28,6 @@ class PictureList extends Component {
 				  display={picture.class}/>
 				)
 		});
-
-		console.log(newList)
-		// this.test();
 
 		return (
 			<div id="imgList">

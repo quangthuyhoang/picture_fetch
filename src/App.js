@@ -1,66 +1,40 @@
 import React, { Component } from 'react';
 import './main.css';
-// import TransitionGroup from 'react-transition-group/TransitionGroup';
 import PictureList from './PictureList';
 import SearchBox from './SearchBox';
 import seed from './imgSeed.js';
-// import imageCheck from 'image-check';
+import { randomPicPos, shuffle} from './local_modules/client.RandomPos';
 
-function randomPicPos(data){
-   var imgArr = data;
-   const div_height = 450;
-   const div_width = 525;
-   const b_width = document.body.clientWidth;
-   const b_height = document.body.clientHeight;
-
-   for(var i = 0; i < imgArr.length; i++) {
-  
-    var pos_x = (Math.random()*(b_width - div_width*.75)).toFixed();
-    var pos_y = (Math.random()*(b_height - div_height*.75) + 70).toFixed();
-    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-    var deg = (Math.random()*-7*plusOrMinus).toFixed();
-    imgArr[i].pos = {x: pos_x, y: pos_y, deg: deg};
-    imgArr[i].class = "PictureBox nodisplay";
-    imgArr[i]._id = i + 1;
-   }
-
-   return imgArr;
-  }
-
-var data1 = randomPicPos(seed);
-// console.log("data1", JSON.stringify(seed[0]), JSON.stringify(data1[0]))
+var defaultSeed = randomPicPos(seed);
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data: data1,
-      ready: false,
-      cnt: 0,
+      data: defaultSeed,
     }
 
     this.getDataFromServer = this.getDataFromServer.bind(this);
     this.randomPicPos = this.randomPicPos.bind(this);
     this.showPic = this.showPic.bind(this);
     this.intervalReveal = this.intervalReveal.bind(this);
+    this.getPictures = this.getPictures.bind(this);
+    this.hidePic = this.hidePic.bind(this);
   }
 
   // Search picture from google using pic api
   getDataFromServer(str) {
-
     //replace any space with %20
     var query = str;
     var newData = [];
     query.replace(" ", "%20");
     var qURL = this.props.url + query + "?offset=1";
-
+    
     fetch(qURL).then(function(response) {
       return response.json();
     })
     .then((data) => {
-      // for(var j = 0; j <= data.length-1; j++) {
-      //   data[j]._id = j;
-      // }
+
       newData = this.addClass(this.randomPicPos(data));
       console.log("initial server check", newData)
       this.setState({data: newData }, ()=> this.intervalReveal() )
@@ -69,11 +43,31 @@ class App extends Component {
     })
   }
 
-  componentDidMount() {
-    console.log("Component Did MOuNT!!", JSON.stringify(this.state.data))
-    this.intervalReveal();
+  getPictures() {
+    var qURL = 'http://localhost:5000/api/pictures';
+    console.log("get pic")
+	  return fetch(qURL).then(function(response) {
+      console.log("get new pic",response)
+		  return response.json();
+	  })
+	  
+  }
+  componentWillMount(){
+    var newData = [];
+    var data = this.getPictures()
+    console.log("component will mount", data)
+    data.then((pics)=> {
+      newData = this.addClass(this.randomPicPos(pics)).splice(0,3);
+      console.log("seed pics", newData)
+      this.setState({data: newData})
+    })
   }
 
+// Checks if images have loaded before revealing them
+  componentDidMount() {
+    this.intervalReveal();
+  }
+// add picture position and deg of rotation
   randomPicPos(data){
    var imgArr = data;
    const div_height = 250;
@@ -85,14 +79,15 @@ class App extends Component {
   
     var pos_x = (Math.random()*(b_width - div_width)).toFixed();
     var pos_y = (Math.random()*(b_height - div_height) + 80).toFixed();
-    var deg = (Math.random()*-7).toFixed();
+    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+	  var deg = (Math.random()*-7*plusOrMinus).toFixed();
     imgArr[i].pos = {x: pos_x, y: pos_y, deg: deg};
     imgArr[i]._id = i + 1;
    }
 
    return imgArr;
   }
-
+// sets initial pictures to be invisible
   addClass(dataArr) {
     var imgArr = dataArr;
 
@@ -105,8 +100,6 @@ class App extends Component {
   }
 
   showPic(dataArr){
-    
-
 // Check which image is hideen and not hidden
   var notdisplay = [], display = [];
     dataArr.forEach(function(obj) {
@@ -120,11 +113,10 @@ class App extends Component {
     
     // Stop if all pictures are revealed
     if(notdisplay.length < 1) {
-      console.log("display length less than 1")
+      this.hidePic(this.state.data);
       return;
     }
  
-
     // reveal on image and join with others
     notdisplay[0]['class'] = "PictureBox show";
     var newData = display.concat(notdisplay);
@@ -133,12 +125,16 @@ class App extends Component {
       console.log("start interval method", this.state.data)
       this.intervalReveal();
     })
+  }
 
+  hidePic(dataArr) {
+    var arr = shuffle(dataArr);
+    this.setState({data: this.addClass(this.randomPicPos(arr))}, () => {
+      this.intervalReveal();
+    });
   }
 
   intervalReveal(){
-    console.log("interval activated")
-    // setTimeout(this.showPic(this.state.data), 2000)
     setTimeout(() => this.showPic(this.state.data), 2000);
   }
 

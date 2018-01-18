@@ -13,7 +13,7 @@
 
 .show {
   opacity: 1;
-  transition-duration: 2s;
+  transition-duration: 2s ease-out;
   /*transition: transform 1.25s;*/
   transform: translateY(50px) !important;
   box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.75) !important;
@@ -105,7 +105,7 @@ input[type=submit] {
 }
 
 body {
-  /*background-image: url("https://wallpaperscraft.com/image/wood_surface_texture_boards_118443_5356x3571.jpg");*/
+  background-image: url("https://wallpaperscraft.com/image/wood_surface_texture_boards_118443_5356x3571.jpg");
   background-size: cover;
 }
 /*
