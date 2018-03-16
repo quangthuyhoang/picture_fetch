@@ -14,7 +14,7 @@ class PictureList extends Component {
 			 top: picture.pos.y + 'px',
 			 border: '1px solid black',
 			 transform: 'rotate('+picture.pos.deg+'deg)',
-			 'box-shadow': '-10px 0px 20px 0px rgba(0,0,0,0.5)',
+			 boxShadow: '-10px 0px 20px 0px rgba(0,0,0,0.5)',
   			 padding: '5px',
   			 backgroundColor: 'white',
 			}

@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import './main.css';
 import PictureList from './PictureList';
 import SearchBox from './SearchBox';
-import seed from './imgSeed.js';
+// import seed from './imgSeed.js';
 import { randomPicPos, shuffle} from './local_modules/client.RandomPos';
 
-var defaultSeed = randomPicPos(seed);
+// var defaultSeed = randomPicPos(seed);
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data: defaultSeed,
+      // data: defaultSeed,
+      data: [],
     }
 
     this.getDataFromServer = this.getDataFromServer.bind(this);
@@ -34,9 +35,7 @@ class App extends Component {
       return response.json();
     })
     .then((data) => {
-
       newData = this.addClass(this.randomPicPos(data));
-      console.log("initial server check", newData)
       this.setState({data: newData }, ()=> this.intervalReveal() )
       }, (err) => {
         console.log(err)
@@ -45,9 +44,7 @@ class App extends Component {
 
   getPictures() {
     var qURL = 'http://localhost:5000/api/pictures';
-    console.log("get pic")
 	  return fetch(qURL).then(function(response) {
-      console.log("get new pic",response)
 		  return response.json();
 	  })
 	  
@@ -55,10 +52,9 @@ class App extends Component {
   componentWillMount(){
     var newData = [];
     var data = this.getPictures()
-    console.log("component will mount", data)
     data.then((pics)=> {
-      newData = this.addClass(this.randomPicPos(pics)).splice(0,3);
-      console.log("seed pics", newData)
+      // temp reduce number pictures to 15 for testing purposes
+      newData = this.addClass(this.randomPicPos(pics).splice(0,15));
       this.setState({data: newData})
     })
   }
@@ -109,7 +105,7 @@ class App extends Component {
         display.push(obj);
       }
     })
-    console.log("notdisplay", notdisplay.length, notdisplay, "display", display.length, display)
+
     
     // Stop if all pictures are revealed
     if(notdisplay.length < 1) {
@@ -122,7 +118,6 @@ class App extends Component {
     var newData = display.concat(notdisplay);
 
     this.setState({data: newData, cnt: this.state.cnt + 1}, ()=> {
-      console.log("start interval method", this.state.data)
       this.intervalReveal();
     })
   }
